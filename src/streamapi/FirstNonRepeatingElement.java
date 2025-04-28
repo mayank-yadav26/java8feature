@@ -23,5 +23,19 @@ public class FirstNonRepeatingElement {
 
 		firstNonRepeating.ifPresentOrElse(num -> System.out.println("First non-repeating number: " + num),
 				() -> System.out.println("No non-repeating number found"));
+		
+		// ✅ If you want to return Integer (which can be null if no element is found):
+		Integer firstNonRepeatingNumber = list.stream()
+				.collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+				.entrySet().stream().filter(entry -> entry.getValue() == 1).map(Map.Entry::getKey).findFirst()
+				.orElse(null); // Returns null if no non-repeating number is found
+		System.out.println("First non-repeating number (Integer): " + firstNonRepeatingNumber);
+		
+		//✅ If you want to return int (primitive, with some default value like -1 if not found):
+		int firstNonRepeatingNumberPrimitive = list.stream()
+				.collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+				.entrySet().stream().filter(entry -> entry.getValue() == 1).map(Map.Entry::getKey).findFirst()
+				.orElse(-1); // Returns -1 if no non-repeating number is found
+		System.out.println("First non-repeating number (int): " + firstNonRepeatingNumberPrimitive);
 	}
 }

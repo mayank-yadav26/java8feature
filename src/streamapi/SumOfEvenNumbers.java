@@ -29,7 +29,7 @@ public class SumOfEvenNumbers {
 		// or 
 		sum = list.stream()
 	              .filter(num -> num % 2 == 0)
-	              .reduce(0, (a, b) -> a + b); // Lambda instead of Integer::sum
+	              .reduce(0, (a, b) -> a+b); // Lambda instead of Integer::sum
 		System.out.println("even sum :"+sum);
 	}
 }
